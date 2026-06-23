@@ -1,33 +1,4 @@
-# dotfiles — macOS look & feel on Lubuntu
-
-A complete dotfiles setup that transforms Lubuntu into a macOS-like experience:
-clean terminal, refined prompt, frosted glass effects, macOS GTK theme, and
-consistent keybindings.
-
----
-
-## What's included
-
-| Area | Tool | What it does |
-|---|---|---|
-| Shell | Zsh + Oh-My-Zsh | macOS-like shell experience |
-| Prompt | Powerlevel10k | Instant, minimal prompt like iTerm2 |
-| Terminal | Alacritty | GPU-rendered, semi-transparent like Terminal.app |
-| Multiplexer | tmux | macOS-style tabs & panes |
-| GTK Theme | WhiteSur | macOS Big Sur / Monterey look |
-| Icons | WhiteSur | macOS icon set |
-| Cursor | Apple Cursor | macOS pointer |
-| Compositor | picom | Frosted glass, shadows, rounded corners |
-| `ls` | exa | Color icons, macOS-style listing |
-| `cat` | bat | Syntax-highlighted, like a mini editor |
-| `find` | fd | Fast, sensible defaults |
-| `grep` | ripgrep | Blazing fast |
-| Fuzzy search | fzf + fzf-tab | Spotlight-like file/command search |
-| File manager | lf | TUI Finder-like explorer |
-| Fetch | neofetch | Apple logo + system info |
-| Fonts | JetBrainsMono Nerd | SF Mono equivalent (free) |
-
----
+# dotfiles
 
 ## Install
 
@@ -80,57 +51,6 @@ If you own a Mac or have legally obtained Apple's fonts:
 
 ```bash
 ~/dotfiles/bin/install-bat-theme
-```
-
----
-
-## Updating
-
-```bash
-cd ~/dotfiles
-git pull
-./install.sh   # idempotent
-```
-
----
-
-## Structure
-
-```
-dotfiles/
-├── bin/                    # helper executables
-│   └── install-bat-theme
-├── config/
-│   ├── alacritty/
-│   │   └── alacritty.toml
-│   ├── lf/
-│   │   └── lfrc
-│   ├── neofetch/
-│   │   └── config.conf
-│   ├── gitconfig
-│   ├── picom.conf
-│   └── tmux.conf
-├── fonts/                  # drop SF Pro .otf files here
-│   └── SF_FONT_NOTE.md
-├── scripts/
-│   ├── alacritty_setup.sh
-│   ├── finalize.sh
-│   ├── fonts.sh
-│   ├── neofetch_setup.sh
-│   ├── packages.sh
-│   ├── symlinks.sh
-│   ├── theme.sh
-│   ├── utils.sh
-│   └── zsh.sh
-├── shell/
-│   ├── aliases.zsh
-│   ├── exports.zsh
-│   ├── functions.zsh
-│   ├── p10k.zsh
-│   ├── zshenv
-│   └── zshrc
-├── install.sh
-└── README.md
 ```
 
 ---
