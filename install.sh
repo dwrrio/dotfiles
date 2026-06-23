@@ -43,10 +43,10 @@ echo "Applying dotfiles..."
 
 cd "$(dirname "$0")"
 
-stow nvim
-stow zsh
-stow kitty
-stow starship
+stow -t ~ -v nvim
+stow -t ~ -v zsh
+stow -t ~ -v kitty
+stow -t ~ -v starship
 
 echo "Changing shell..."
 
