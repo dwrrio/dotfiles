@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/YOURNAME/dotfiles.git ~/dotfiles
+git clone https://github.com/dwrrio/dotfiles.git ~/dotfiles
 
 # 2. Run the installer
 cd ~/dotfiles
