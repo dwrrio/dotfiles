@@ -1,0 +1,50 @@
+# =============================================================================
+# ~/.gitconfig
+# =============================================================================
+[user]
+    # name  = Your Name        ← fill in
+    # email = you@example.com  ← fill in
+
+[core]
+    editor     = nano
+    autocrlf   = input
+    pager      = delta         # install with: cargo install git-delta
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+
+[pull]
+    rebase = false
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[alias]
+    lg    = log --oneline --graph --decorate --all
+    st    = status -sb
+    co    = checkout
+    br    = branch
+    ci    = commit
+    undo  = reset HEAD~1 --mixed
+    amend = commit --amend --no-edit
+    nuke  = !git reset --hard && git clean -fd
+    whoami = !git config user.name && git config user.email
+    aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.//;s/ /\\t/'
+
+[diff]
+    colorMoved = default
+
+# ── delta (if installed) ──────────────────────────────────────────────────────
+[delta]
+    navigate    = true
+    light       = false
+    syntax-theme = Catppuccin-mocha
+    line-numbers = true
+    side-by-side = true
+
+[merge]
+    conflictstyle = diff3

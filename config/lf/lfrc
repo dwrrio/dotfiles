@@ -1,0 +1,49 @@
+# =============================================================================
+# lf — terminal file manager (Finder-inspired TUI)
+# =============================================================================
+
+set hidden true
+set icons true
+set drawbox true
+set ignorecase true
+set preview true
+set ratios 1:2:3
+set previewer ~/.config/lf/preview
+set cleaner  ~/.config/lf/cleaner
+
+# ── Keybindings ───────────────────────────────────────────────────────────────
+map <enter> open
+map <delete> trash
+map A rename   # at the end
+map I push A<c-a>  # at the beginning
+map i push A<a-b><a-b><a-f>  # in the middle
+
+map gh cd ~
+map gd cd ~/Downloads
+map gD cd ~/Documents
+map gp cd ~/Pictures
+map gc cd ~/.config
+
+map . set hidden!
+
+# ── Commands ──────────────────────────────────────────────────────────────────
+cmd open &{{
+    case $(file --mime-type -Lb $f) in
+        text/*) lf -remote "send $id \$EDITOR \$fx";;
+        *) xdg-open $fx &>/dev/null &;;
+    esac
+}}
+
+cmd trash %trash $fx
+
+cmd mkdir ${{
+    printf "Directory name: "
+    read ans
+    mkdir -p "$ans"
+}}
+
+cmd mkfile ${{
+    printf "File name: "
+    read ans
+    touch "$ans"
+}}

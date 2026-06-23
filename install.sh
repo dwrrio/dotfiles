@@ -1,73 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# =============================================================================
+# dotfiles/install.sh — macOS-like environment on Lubuntu
+# =============================================================================
+set -euo pipefail
 
-set -e
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DOTFILES_DIR/scripts/utils.sh"
 
-echo "Updating packages..."
+# ─── Steps ────────────────────────────────────────────────────────────────────
+step "1/8  Installing system packages..."
+bash "$DOTFILES_DIR/scripts/packages.sh"
 
-sudo apt update
+step "2/8  Installing fonts (SF Mono / JetBrains Mono Nerd)..."
+bash "$DOTFILES_DIR/scripts/fonts.sh"
 
-sudo apt install -y \
-git \
-curl \
-stow \
-zsh \
-kitty \
-neovim \
-python3 \
-python3-pip \
-g++ \
-clangd \
-unzip
+step "3/8  Symlinking config files..."
+bash "$DOTFILES_DIR/scripts/symlinks.sh"
 
-echo "Installing Starship..."
+step "4/8  Setting up Zsh + Oh-My-Zsh..."
+bash "$DOTFILES_DIR/scripts/zsh.sh"
 
-curl -sS https://starship.rs/install.sh | sh -s -- -y
+step "5/8  Applying macOS color theme (GTK + Qt)..."
+bash "$DOTFILES_DIR/scripts/theme.sh"
 
-echo "Installing Nerd Font..."
+step "6/8  Configuring Alacritty terminal..."
+bash "$DOTFILES_DIR/scripts/alacritty_setup.sh"
 
-FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
-ZIP_FILE="/tmp/JetBrainsMono.zip"
+step "7/8  Setting up Neofetch..."
+bash "$DOTFILES_DIR/scripts/neofetch_setup.sh"
 
-if fc-list | grep -qi "JetBrainsMono"; then
-    echo "JetBrainsMono already installed, skipping..."
-else
-    echo "Downloading JetBrainsMono..."
+step "8/8  Final touches (aliases, paths, env)..."
+bash "$DOTFILES_DIR/scripts/finalize.sh"
 
-    mkdir -p "$FONT_DIR"
-
-    curl -L \
-      --fail \
-      --retry 3 \
-      --connect-timeout 10 \
-      -o "$ZIP_FILE" \
-      https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
-
-    echo "Unzipping..."
-
-    unzip -o "$ZIP_FILE" -d "$FONT_DIR"
-
-    rm -f "$ZIP_FILE"
-
-    echo "Updating font cache..."
-    fc-cache -fv
-fi
-
-echo "Installing pynvim..."
-
-sudo apt install -y python3-pynvim
-
-echo "Applying dotfiles..."
-
-cd "$(dirname "$0")"
-
-stow -t ~ -v nvim
-stow -t ~ -v zsh
-stow -t ~ -v kitty
-stow -t ~ -v starship
-
-echo "Changing shell..."
-
-chsh -s $(which zsh)
-
-echo "Done."
-echo "Restart terminal."
+ok "All done! Please log out and back in (or run: exec zsh)"
