@@ -28,14 +28,21 @@ echo "Installing Nerd Font..."
 FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
 ZIP_FILE="/tmp/JetBrainsMono.zip"
 
-if [ -d "$FONT_DIR" ]; then
+if fc-list | grep -qi "JetBrainsMono"; then
     echo "JetBrainsMono already installed, skipping..."
 else
     echo "Downloading JetBrainsMono..."
 
     mkdir -p "$FONT_DIR"
 
-    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip -O "$ZIP_FILE"
+    curl -L \
+      --fail \
+      --retry 3 \
+      --connect-timeout 10 \
+      -o "$ZIP_FILE" \
+      https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+
+    echo "Unzipping..."
 
     unzip -o "$ZIP_FILE" -d "$FONT_DIR"
 
