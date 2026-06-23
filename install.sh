@@ -37,7 +37,7 @@ fc-cache -fv
 
 echo "Installing pynvim..."
 
-pip3 install --user pynvim
+sudo apt install -y python3-pynvim
 
 echo "Applying dotfiles..."
 
