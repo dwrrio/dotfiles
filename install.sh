@@ -25,15 +25,25 @@ curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 echo "Installing Nerd Font..."
 
-mkdir -p ~/.fonts
+FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
+ZIP_FILE="/tmp/JetBrainsMono.zip"
 
-cd /tmp
+if [ -d "$FONT_DIR" ]; then
+    echo "JetBrainsMono already installed, skipping..."
+else
+    echo "Downloading JetBrainsMono..."
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+    mkdir -p "$FONT_DIR"
 
-unzip JetBrainsMono.zip -d ~/.fonts
+    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip -O "$ZIP_FILE"
 
-fc-cache -fv
+    unzip -o "$ZIP_FILE" -d "$FONT_DIR"
+
+    rm -f "$ZIP_FILE"
+
+    echo "Updating font cache..."
+    fc-cache -fv
+fi
 
 echo "Installing pynvim..."
 
